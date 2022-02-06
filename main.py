@@ -22,10 +22,11 @@ st.sidebar.warning('please enter "plog" filepath')
 sidebar_folder_path = st.sidebar.text_input('Folderpath: ...\plog')
 
 
-
+if bool(sidebar_folder_path):
+    
 
 #1. ASM folder path 2.autocross folder path. Wenn mehr missionen -> autocross variable machen
-with col1:
+ with col1:
     st.header("AGX Log Data")
     st.image(image, width=100)
 
@@ -58,7 +59,7 @@ with col1:
 
 
 #Show Log Data Text Coloumn
-with col3:
+ with col3:
 
     lines = [] #for later interation
 
@@ -121,7 +122,7 @@ with col3:
 
         
 #Plot column
-with col2:
+ with col2:
 
     #check if Runtime is empty -> a file without ms statement was selected
     if bool(Runtime):
@@ -151,3 +152,4 @@ with col2:
         st.info('No ms data found in log file')
 
         
+
