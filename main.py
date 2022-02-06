@@ -12,10 +12,16 @@ image = Image.open('DynamicsLogo.png')
 
 st.set_page_config(layout="wide", page_title="AGX LOG DATA", page_icon=image)
 
+folder_path = ""
 
 #set page columns
 col1, col2, col3= st.columns([1.2, 2, 2])
 Runtime = [] #store runtime data in ms
+
+st.sidebar.warning('please enter "plog" filepath')
+sidebar_folder_path = st.sidebar.text_input('Folderpath: ...\plog')
+
+
 
 
 #1. ASM folder path 2.autocross folder path. Wenn mehr missionen -> autocross variable machen
@@ -29,11 +35,11 @@ with col1:
     #Select Folder 
     if options_folder == "ASM":
         arr_dir = os.listdir(
-            "C:\\Users\\Nutzer\\Desktop\\Alles\Code\\Python\\LogDataPlot\\plog\\ASM")
+            sidebar_folder_path + "\\ASM")
     else:
         #Autocross is parentfolder
         arr_dir = os.listdir(
-            "C:\\Users\\Nutzer\\Desktop\\Alles\Code\\Python\\LogDataPlot\\plog\\autocross\\" + options_folder)  
+            sidebar_folder_path +  "\\autocross\\" + options_folder)
 
     #select log file
     options_file = st.selectbox('Log File: ', arr_dir) 
@@ -59,8 +65,8 @@ with col3:
     if options_folder == "ASM":
         with st.container():
           with open(
-            "C:\\Users\\Nutzer\\Desktop\\Alles\Code\\Python\\LogDataPlot\\plog\\" 
-             + options_folder + "\\" + options_file) as log_file:
+             sidebar_folder_path 
+            + "\\" + options_folder + "\\" + options_file) as log_file:
 
              #print log file lines
              for line in log_file:
@@ -77,7 +83,7 @@ with col3:
     else:
         message_count = 0
         with open(
-            "C:\\Users\\Nutzer\\Desktop\\Alles\Code\\Python\\LogDataPlot\\plog\\autocross\\"
+            sidebar_folder_path + "\\autocross\\"
                 + options_folder + "\\" + options_file) as log_file:
             for line in log_file:
 
@@ -145,4 +151,3 @@ with col2:
         st.info('No ms data found in log file')
 
         
-
